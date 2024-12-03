@@ -4,6 +4,8 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+
+	"github.com/lib/pq"
 )
 
 func (m *Post) CreatePost(ctx context.Context, insertData *ModelPost) (*ModelPost, error) {
@@ -15,7 +17,7 @@ VALUES ($1, $2, $3, $4)
 RETURNING id, title, content, category, tags, created_at, updated_at
 `
 
-	row := m.db.QueryRowContext(ctx, stmt, insertData.Title, insertData.Content, insertData.Category, insertData.Tags)
+	row := m.db.QueryRowContext(ctx, stmt, insertData.Title, insertData.Content, insertData.Category, pq.Array(insertData.Tags))
 
 	if err := row.Err(); err != nil {
 		log.ErrorContext(ctx, "fail to insert to table post", "error", err)

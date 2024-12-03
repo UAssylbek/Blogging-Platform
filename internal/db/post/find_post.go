@@ -8,7 +8,7 @@ func (m *Post) FindPost(ctx context.Context, id int64) (*ModelPost, error) {
 	log := m.logger.With("method", "FindPost")
 
 	stmt := `
-SELECT id, title, description, posterUrl, created_at, updated_at 
+SELECT id, title, content, category, tags, created_at, updated_at 
 FROM post
 WHERE id = $1
 `

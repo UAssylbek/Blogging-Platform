@@ -10,7 +10,7 @@ func (m *Post) FindPosts(ctx context.Context) ([]ModelPost, error) {
 	posts := make([]ModelPost, 0)
 
 	stmt := `
-SELECT id, title, description, posterUrl, created_at, updated_at 
+SELECT id, title, content, category, tags, created_at, updated_at 
 FROM post
 `
 
